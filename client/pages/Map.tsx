@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "@/components/Layout";
 import MapView from "@/components/MapView";
+import ShareLocationButton from "@/components/ShareLocationButton";
 
 export default function Map() {
   return (
@@ -14,6 +15,9 @@ export default function Map() {
           </p>
 
           <div className="mt-6 bg-[hsl(var(--card))] rounded-lg shadow p-6 border border-[hsl(var(--border))]">
+            <div className="flex items-center justify-end mb-4">
+              <ShareLocationButton />
+            </div>
             <MapView className="w-full h-72" />
           </div>
         </div>

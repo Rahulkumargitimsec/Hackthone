@@ -436,3 +436,32 @@ def export_table(form_name: str, table: str):
             raise HTTPException(status_code=500, detail=str(e))
         conn.close()
         return {"columns": cols, "rows": rows}
+
+
+class FormData(BaseModel):
+    form_name: str
+    fields: Dict[str, Any]
+
+@app.post("/submit")
+async def submit_form(data: FormData):
+    """Handle form submission and store data in SQLite."""
+    db_file = db_path(data.form_name)
+    conn = sqlite3.connect(db_file)
+    try:
+        # Ensure table exists
+        columns = ", ".join(f"{key} TEXT" for key in data.fields.keys())
+        conn.execute(f"CREATE TABLE IF NOT EXISTS submissions (id INTEGER PRIMARY KEY, {columns})")
+
+        # Insert data
+        placeholders = ", ".join("?" for _ in data.fields)
+        conn.execute(
+            f"INSERT INTO submissions ({', '.join(data.fields.keys())}) VALUES ({placeholders})",
+            list(data.fields.values()),
+        )
+        conn.commit()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to save form data: {e}")
+    finally:
+        conn.close()
+
+    return {"message": "Form submitted successfully"}

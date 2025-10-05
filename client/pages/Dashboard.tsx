@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import MapView from "@/components/MapView";
 import SOSButton from "@/components/SOSButton";
 import { useAlert } from "@/state/AlertContext";
+import ShareLocationButton from "@/components/ShareLocationButton";
 
 function Timer({ startedAt }: { startedAt: number | null }) {
   const now = Date.now();
@@ -53,7 +54,9 @@ export default function Dashboard() {
                 {alert.isTracking ? "Active" : "Inactive"}
               </div>
               <div className="mt-3">
-                <div className="text-xs text-muted-foreground">Location tracking starts automatically on first load.</div>
+                <div className="text-xs text-muted-foreground">
+                  Location tracking starts automatically on first load.
+                </div>
               </div>
             </div>
             <div className="p-4 bg-[hsl(var(--card))] rounded-lg shadow border border-[hsl(var(--border))]">
@@ -79,7 +82,7 @@ export default function Dashboard() {
             <div className="p-4 bg-[hsl(var(--card))] rounded-lg shadow border border-[hsl(var(--border))]">
               <h4 className="font-semibold">Quick Actions</h4>
               <div className="mt-3">
-                <button className="px-3 py-2 bg-primary text-primary-foreground rounded-md">Share Location</button>
+                <ShareLocationButton />
               </div>
             </div>
           </div>
@@ -135,7 +138,11 @@ export default function Dashboard() {
                       </div>
                       <div className="flex items-center gap-2">
                         <div
-                          className={`px-2 py-1 rounded text-xs ${u.status === "responding" ? "bg-emerald-100 text-emerald-800" : "bg-sky-100 text-sky-700"}`}
+                          className={`px-2 py-1 rounded text-xs ${
+                            u.status === "responding"
+                              ? "bg-emerald-100 text-emerald-800"
+                              : "bg-sky-100 text-sky-700"
+                          }`}
                         >
                           {u.status === "responding"
                             ? "Responding"

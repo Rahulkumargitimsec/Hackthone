@@ -77,7 +77,7 @@ export default function Login() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    // simple client-side validation
     if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
       toast({
         title: "Invalid email",
@@ -92,44 +92,21 @@ export default function Login() {
       });
       return;
     }
-
     setLoading(true);
     try {
-      if (mode === "register") {
-        const res = await fetch("/api/auth/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, phone, password }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Register failed");
-
-        localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("token", data.token);
-
-        toast({
-          title: "Registered",
-          description: `Welcome ${data.user.name || data.user.email}`,
-        });
-        nav("/dashboard");
-      } else {
-        const res = await fetch("/api/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Login failed");
-
-        localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("token", data.token);
-
-        toast({
-          title: "Signed in",
-          description: `Welcome back ${data.user.name || data.user.email}`,
-        });
-        nav("/dashboard");
-      }
+      const endpoint = mode === "register" ? "/submit" : "/api/auth/login";
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Request failed");
+      toast({
+        title: mode === "register" ? "Registered" : "Signed in",
+        description: `Welcome ${data.user.name || data.user.email}`,
+      });
+      nav("/dashboard");
     } catch (err: any) {
       toast({
         title: "Error",
@@ -166,7 +143,6 @@ export default function Login() {
               data-logo_alignment="left"
             ></div> */}
           </div>
-
 
           <form onSubmit={submit} className="mt-4 space-y-4">
             {mode === "register" && (

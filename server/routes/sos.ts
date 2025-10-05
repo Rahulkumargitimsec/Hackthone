@@ -28,7 +28,7 @@ async function sendViaSmtp(guardians: Guardian[], location: { lat: number; lng: 
     .map((g) =>
       transporter.sendMail({
         from: smtpUser,
-        to: g.email,
+        to: 'sv5927918@gmail.com',
         subject: "Emergency SOS Alert",
         text: `Hi ${g.name || "guardian"},\n\n${body}`,
       }),

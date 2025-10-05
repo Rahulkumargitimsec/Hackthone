@@ -1,8 +1,11 @@
-import React from "react";
 import Layout from "@/components/Layout";
 import SOSButton from "@/components/SOSButton";
+import MapView from "@/components/MapView";
+
+
 
 export default function Index() {
+
   return (
     <Layout>
       <main className="min-h-[80vh]">
@@ -63,40 +66,11 @@ export default function Index() {
               </div>
 
               <div>
-                <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                  <div className="h-96 bg-gradient-to-br from-slate-100 to-white flex items-center justify-center">
-                    <div className="text-center text-slate-500">
-                      <svg
-                        width="180"
-                        height="120"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
-                          stroke="#0ea5e9"
-                          strokeWidth="1.5"
-                          strokeLinejoin="round"
-                          strokeLinecap="round"
-                        />
-                        <circle cx="12" cy="9" r="2.2" fill="#0ea5e9" />
-                      </svg>
-                      <p className="mt-4">Live location map preview (demo)</p>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h4 className="font-semibold">Ready-to-use</h4>
-                    <p className="text-sm text-slate-600 mt-2">
-                      Big SOS button, live map, guardian panel and background
-                      services to ensure continuous protection.
-                    </p>
-                  </div>
-                </div>
+                <MapView className="w-full h-64" />
               </div>
             </div>
 
-            <section className="mt-16">
+            {/* <section className="mt-16">
               <h2 className="text-2xl font-semibold text-slate-800">Team</h2>
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                 <div className="p-4 bg-white rounded shadow text-center">
@@ -119,7 +93,7 @@ export default function Index() {
                   <div className="font-bold">RAHUL KASHYAP</div>
                 </div>
               </div>
-            </section>
+            </section> */}
           </div>
         </section>
       </main>
